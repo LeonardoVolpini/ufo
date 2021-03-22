@@ -1,7 +1,6 @@
 package it.polito.udp.ufo.db;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,12 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class sightingDAO {
-	
-	String jdbcURL= "jdbc:mysql://localhost/ufo_sightings?user=root&password=Leonardo00";
 
 	public List<String> readShapes() {
 		try {
-			Connection conn = DriverManager.getConnection(jdbcURL);
+			Connection conn = DBConnect.getConnection();
 	
 			String sql= "SELECT DISTINCT shape "
 					+ "FROM sighting "
@@ -37,7 +34,7 @@ public class sightingDAO {
 	
 	public int countByShape(String shape) {
 		try {
-			Connection conn = DriverManager.getConnection(jdbcURL);
+			Connection conn = DBConnect.getConnection();
 			
 			String sql2="SELECT COUNT(*) AS cnt FROM sighting WHERE shape = ? ";
 			PreparedStatement st2= conn.prepareStatement(sql2);  //USIAMO SEMPRE QUESTO
